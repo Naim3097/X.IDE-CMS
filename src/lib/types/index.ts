@@ -31,6 +31,7 @@ export type ContentStatus =
   | 'waiting_for_direction' // Client needs to fill inputs
   | 'agency_prep'           // Person A or B working
   | 'client_review'         // Submitted as Draft X
+  | 'changes_requested'     // Client requested changes
   | 'approved';             // Final
 
 export type MediaType = 'image' | 'video';
