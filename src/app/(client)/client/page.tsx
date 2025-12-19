@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useClientDashboard } from '@/features/client/hooks/useClientDashboard';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,7 +10,7 @@ import { MediaPreview } from '@/components/media-preview';
 import Link from 'next/link';
 import { CheckCircle2, Clock, PenTool, AlertCircle, ImageIcon } from 'lucide-react';
 
-export default function ClientDashboardPage() {
+function ClientDashboardContent() {
   const searchParams = useSearchParams();
   const monthIdParam = searchParams.get('monthId');
   const clientId = '1'; 
@@ -128,4 +128,12 @@ function StatusBadge({ status }: { status: string }) {
     default:
       return <Badge variant="outline">{status}</Badge>;
   }
+}
+
+export default function ClientDashboardPage() {
+  return (
+    <Suspense fallback={<div className="p-8 flex items-center justify-center min-h-screen"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div></div>}>
+      <ClientDashboardContent />
+    </Suspense>
+  );
 }
